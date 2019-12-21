@@ -1,13 +1,18 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const Usuario = require('../models/usuario')
+const {verificaToken,verificaRol} = require('../middlewares/autenticacion')
+
+
 const _ = require('underscore')
 
 const app = express()
 //[GET]=========================>
-app.get('/usuario', function (req, res) {
+app.get('/usuario', verificaToken ,(req, res) =>{
   let desde = Number(req.query.desde) || 0;
   let limite = Number(req.query.limite) || 5;
+
+
 
   Usuario.find({estado:true}, 'nombre').
     skip(desde).
@@ -32,7 +37,7 @@ app.get('/usuario', function (req, res) {
 })
 
 //[POST]=========================>
-app.post('/usuario', function (req, res) {
+app.post('/usuario', [verificaToken,verificaRol] , function (req, res) {
   let body = req.body;
 
 
@@ -63,7 +68,7 @@ app.post('/usuario', function (req, res) {
 })
 
 //[PUT]=========================>
-app.put('/usuario/:id', function (req, res) {
+app.put('/usuario/:id', [verificaToken,verificaRol] , function (req, res) {
   let id = req.params.id
   let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
   console.log('[ENTRA]')
@@ -85,7 +90,7 @@ app.put('/usuario/:id', function (req, res) {
 })
 
 //[DELETE]: Borrar de la BD=========================>
-app.delete('/usuario/:id', function (req, res) {
+app.delete('/usuario/:id', [verificaToken,verificaRol] , function (req, res) {
   let id = req.params.id
   //Primer opcion borra usuario de la BD el segundo solo actualiza el estado
   //Usuario.findByIdAndRemove(id, (err, usuarioBD)=>{
