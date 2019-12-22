@@ -119,6 +119,10 @@ app.delete('/usuario/:id', [verificaToken,verificaRol] , function (req, res) {
 
 
 
+
+
+
+
 //[EXPORTACION APP CON LA CONFIGURACION DEL CONTROLADIR DEL USUARIO]=========================>
 
 module.exports = app;

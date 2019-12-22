@@ -17,6 +17,11 @@ process.env.SEED = process.env.SEED || 'seed-de-desarrollo';
 process.env.CADUCA = process.env.CADUCA || 60 * 60 * 24 * 24;
 
 
+//CLIENT ID DE GOOGLE
+
+process.env.CLIENT_ID = process.env.CLIENT_ID || '40782106712-ld173vhse74t1okb3bdosk6impdb4lr8.apps.googleusercontent.com';
+
+
 //Baase de datos
 
 let urlBD;
